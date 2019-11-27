@@ -106,7 +106,7 @@ public class AppFrameworkServiceImplTest  {
     	when(sessionFactory.getCurrentSession()).thenReturn(session);
     	allComponentsState.setSessionFactory(new DbSessionFactory(sessionFactory));
     	
-    	service = new AppFrameworkServiceImpl(null, allAppDescriptors, allFreeStandingExtensions, allComponentsState, null, featureToggles, appFrameworkConfig, null);
+    	service = new AppFrameworkServiceImpl(null, allAppDescriptors, allFreeStandingExtensions, allComponentsState, null, featureToggles, appFrameworkConfig, null, null);
     }
 
     @After

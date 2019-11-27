@@ -30,6 +30,7 @@ import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.repository.AllAppDescriptors;
 import org.openmrs.module.appframework.repository.AllAppTemplates;
 import org.openmrs.module.appframework.repository.AllFreeStandingExtensions;
+import org.openmrs.module.appframework.repository.AllLoginLocations;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 
 import java.util.Iterator;
@@ -61,11 +62,14 @@ public class AppFrameworkActivator extends BaseModuleActivator implements Module
         AllAppTemplates allAppTemplates = Context.getRegisteredComponents(AllAppTemplates.class).get(0);
         AllAppDescriptors allAppDescriptors = Context.getRegisteredComponents(AllAppDescriptors.class).get(0);
         AllFreeStandingExtensions allFreeStandingExtensions = Context.getRegisteredComponents(AllFreeStandingExtensions.class).get(0);
+        AllLoginLocations allLoginLocations = Context.getRegisteredComponents(AllLoginLocations.class).get(0);
 
         if (!config.getLoadAppsFromClasspath()) {
             disableDefaultConfigurationFactory(appFrameworkFactories);
         }
 
+        LocationTag locationTag = Context.getLocationService().getLocationTagByName(AppFrameworkConstants.LOCATION_TAG_SUPPORTS_LOGIN);
+        allLoginLocations.add(Context.getLocationService().getLocationsByTag(locationTag));
         registerAppsAndExtensions(appFrameworkFactories, allAppTemplates, allAppDescriptors, allFreeStandingExtensions, config);
 
     }
